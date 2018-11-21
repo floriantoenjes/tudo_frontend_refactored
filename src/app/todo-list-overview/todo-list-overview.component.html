@@ -1,0 +1,9 @@
+<p>
+  todo-list-overview works!
+</p>
+
+<ul>
+  <li *ngFor="let todoList of todoLists$ | async">
+    {{ todoList.name }}
+  </li>
+</ul>
