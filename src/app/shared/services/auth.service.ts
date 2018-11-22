@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthService {
 
   constructor(private http: RestClientService) { }
 
@@ -23,6 +23,10 @@ export class AuthServiceService {
       const jwt = response.headers.get('Authorization');
       this.setToken(jwt);
     });
+  }
+
+  getToken(): string {
+    return localStorage.getItem('token');
   }
 
   setToken(token: string): void {
