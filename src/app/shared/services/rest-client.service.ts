@@ -9,12 +9,14 @@ import { map } from 'rxjs/operators';
 })
 export class RestClientService extends HttpClient {
 
+  public baseUri = environment.apiUrl;
+
   constructor(httpHandler: HttpHandler) {
     super(httpHandler);
   }
 
-  getRestEntities<T>(url: string, selector: string): Observable<T[]> {
-    return super.get<any>(`${environment.apiUrl}${url}`, {
+  getRestEntities<T>(uri: string, selector: string): Observable<T[]> {
+    return super.get<any>(`${this.baseUri}${uri}`, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     }).pipe(
@@ -22,11 +24,16 @@ export class RestClientService extends HttpClient {
     );
   }
 
-  getRestEntity<T>(url: string): Observable<T> {
-    return super.get<T>(`${environment.apiUrl}${url}`, {
+  getRestEntity<T>(uri: string): Observable<T> {
+    return super.get<T>(`${this.baseUri}${uri}`, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     });
   }
 
+  postRestEntity<T>(uri: string, body: any): Observable<T> {
+    return super.post<T>(`${this.baseUri}${uri}`, body,
+      { headers: new HttpHeaders().set('Content-Type', 'application/json') }
+    );
+  }
 }
