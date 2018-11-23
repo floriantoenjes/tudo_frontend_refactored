@@ -10,6 +10,8 @@ import { User } from '../models/user.model';
 })
 export class AuthService {
 
+  private currentUser: User;
+
   constructor(private http: RestClientService) { }
 
   signIn(username: string, password: string): Observable<any> {
