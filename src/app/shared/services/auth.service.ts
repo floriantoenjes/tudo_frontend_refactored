@@ -3,6 +3,7 @@ import { RestClientService } from './rest-client.service';
 import { HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,28 @@ export class AuthService {
 
   setToken(token: string): void {
     localStorage.setItem('token', token);
+  }
+
+  isSignedIn(): boolean {
+    return this.getToken() !== null;
+  }
+
+  getCurrentUser(): User {
+    if (this.isSignedIn()) {
+      const decodedToken: any = this.decodeJWT(this.getToken());
+      const currentUser: User = new User();
+
+      currentUser.id = decodedToken.jti;
+      currentUser.username = decodedToken.sub;
+
+      return currentUser;
+    }
+  }
+
+  decodeJWT(token: string): Object {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
   }
 
 }
