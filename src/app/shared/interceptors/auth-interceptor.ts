@@ -9,8 +9,7 @@ import { environment } from 'src/environments/environment';
 export class AuthInterceptor implements HttpInterceptor {
 
   private noAuthRoutes = [
-    '/sign_in',
-    '/sign_up'
+    '/login'
   ];
 
   constructor(private authService: AuthService) {

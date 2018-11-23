@@ -24,8 +24,8 @@ export class SignInComponent implements OnInit {
 
   signIn(): void {
     const credentials = this.signInForm.value;
-    this.authService.signIn(credentials.username, credentials.password);
-    this.router.navigate(['']);
+    this.authService.signIn(credentials.username, credentials.password)
+      .subscribe(() => this.router.navigate(['']));
   }
 
   private createForm(): void {
