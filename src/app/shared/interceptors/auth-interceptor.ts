@@ -17,8 +17,9 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const route = req.url.replace(environment.apiUrl, '');
 
-    if (this.noAuthRoutes.includes(req.url.replace(environment.apiUrl, ''))) {
+    if (!this.noAuthRoutes.includes(route)) {
 
       const authReq = req.clone({
         headers: req.headers.set('Authorization', this.authService.getToken())
