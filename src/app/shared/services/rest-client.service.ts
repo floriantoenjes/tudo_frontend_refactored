@@ -16,7 +16,7 @@ export class RestClientService extends HttpClient {
   }
 
   getRestEntities<T>(uri: string, selector: string): Observable<T[]> {
-    return super.get<any>(`${this.baseUri}${uri}`, {
+    return super.get<any>(uri, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     }).pipe(
@@ -25,14 +25,14 @@ export class RestClientService extends HttpClient {
   }
 
   getRestEntity<T>(uri: string): Observable<T> {
-    return super.get<T>(`${this.baseUri}${uri}`, {
+    return super.get<T>(uri, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     });
   }
 
   postRestEntity<T>(uri: string, body: any): Observable<T> {
-    return super.post<T>(`${this.baseUri}${uri}`, body,
+    return super.post<T>(uri, body,
       { headers: new HttpHeaders().set('Content-Type', 'application/json') }
     );
   }

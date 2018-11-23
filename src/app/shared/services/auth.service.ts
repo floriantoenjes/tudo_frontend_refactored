@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { RestClientService } from './rest-client.service';
 import { HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { User } from '../models/user.model';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,10 @@ export class AuthService {
 
   private currentUser: User;
 
-  constructor(private http: RestClientService) { }
+  constructor(
+    private apiService: ApiService,
+    private http: RestClientService
+  ) { }
 
   signIn(username: string, password: string): Observable<any> {
 
@@ -42,16 +46,20 @@ export class AuthService {
     return this.getToken() !== null;
   }
 
-  getCurrentUser(): User {
+  getCurrentUser(): Observable<User> {
     if (this.isSignedIn()) {
-      const decodedToken: any = this.decodeJWT(this.getToken());
-      const currentUser: User = new User();
-
-      currentUser.id = decodedToken.jti;
-      currentUser.username = decodedToken.sub;
-
-      return currentUser;
+      if (!this.currentUser) {
+        return this.fetchUser();
+      } else {
+        return of(this.currentUser);
+      }
     }
+  }
+
+  fetchUser(): Observable<User> {
+    const decodedToken: any = this.decodeJWT(this.getToken());
+    const url = this.apiService.apiInfo._links.users.href.split('{')[0] + '/' + decodedToken.jti;
+    return this.http.getRestEntity<User>(url);
   }
 
   decodeJWT(token: string): Object {
