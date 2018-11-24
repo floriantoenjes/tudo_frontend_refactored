@@ -21,4 +21,10 @@ export class TodoListService {
     }));
   }
 
+  getTodoList(uri: string): Observable<TodoList> {
+    return this.http.getRestEntity<TodoList>(uri);
+  }
+
+
+
 }
