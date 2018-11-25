@@ -1,10 +1,6 @@
-<p>
-  todo-list-overview works!
-</p>
 
 <ul>
   <li *ngFor="let todoList of todoLists$ | async">
-    {{ todoList.name }}
-    {{ todoList._links | json}}
+    <a routerLink="/todo-lists/{{ todoList.id }}">{{ todoList.name }}</a>
   </li>
 </ul>

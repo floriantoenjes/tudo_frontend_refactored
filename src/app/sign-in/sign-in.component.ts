@@ -25,7 +25,7 @@ export class SignInComponent implements OnInit {
   signIn(): void {
     const credentials = this.signInForm.value;
     this.authService.signIn(credentials.username, credentials.password)
-      .subscribe(() => this.router.navigate(['']));
+      .subscribe(() => this.router.navigate(['todo-lists']));
   }
 
   private createForm(): void {

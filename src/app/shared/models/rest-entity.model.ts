@@ -1,4 +1,9 @@
 
 export class RestEntity {
-    _links: any;
+    id: number;
+    _links: {
+        self: {
+            href: string;
+        }
+    };
 }

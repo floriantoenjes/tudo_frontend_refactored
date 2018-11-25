@@ -4,17 +4,13 @@ import { HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { User } from '../models/user.model';
-import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private currentUser: User;
-
   constructor(
-    private apiService: ApiService,
     private http: RestClientService
   ) { }
 
@@ -43,23 +39,20 @@ export class AuthService {
   }
 
   isSignedIn(): boolean {
+    // TODO: Check if token is expired
     return this.getToken() !== null;
   }
 
-  getCurrentUser(): Observable<User> {
+  getCurrentUser(): User {
     if (this.isSignedIn()) {
-      if (!this.currentUser) {
-        return this.fetchUser();
-      } else {
-        return of(this.currentUser);
-      }
-    }
-  }
+      const currentUser = new User();
+      const decodedToken: any = this.decodeJWT(this.getToken());
 
-  fetchUser(): Observable<User> {
-    const decodedToken: any = this.decodeJWT(this.getToken());
-    const url = this.apiService.apiInfo._links.users.href.split('{')[0] + '/' + decodedToken.jti;
-    return this.http.getRestEntity<User>(url);
+      currentUser.id = decodedToken.jti;
+      currentUser.username = decodedToken.sub;
+
+      return currentUser;
+    }
   }
 
   decodeJWT(token: string): Object {

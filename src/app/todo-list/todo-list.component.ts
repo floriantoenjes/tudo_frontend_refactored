@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RestClientService } from '../shared/services/rest-client.service';
 import { TodoList } from '../shared/models/todo-list.model';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { TodoListService } from '../shared/services/todo-list.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -14,12 +14,14 @@ export class TodoListComponent implements OnInit {
   public todoList$: Observable<TodoList>;
 
   constructor(
-    private http: RestClientService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private todoListService: TodoListService
   ) { }
 
   ngOnInit() {
-
+    this.route.paramMap.subscribe(params => {
+      this.todoList$ = this.todoListService.getTodoList(params.get('todoListId'));
+    });
   }
 
 }
