@@ -15,6 +15,7 @@ export class TodoListService {
   ) { }
 
   getTodoLists(): Observable<TodoList[]> {
+    // TODO: Remove base path from this call?
     return this.http.getRestEntities<TodoList>(
       `/todoLists/search/findAllByCreator?creator=/api/v1/users/${this.authService.getCurrentUser().id}`, 'todoLists'
     );

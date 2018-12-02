@@ -35,7 +35,12 @@ export class RestClientService extends HttpClient {
     return super.get<T>(`${environment.apiUrl}${uri}`, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
-    });
+    }).pipe(
+      map(entity => {
+        entity.id = this.getEntityId(entity);
+        return entity;
+      })
+    );
   }
 
   postRestEntity<T extends RestEntity>(uri: string, body: any): Observable<T> {

@@ -1,3 +1,6 @@
 <p>
   {{ (todoList$ | async)?.name }}
 </p>
+<p *ngFor="let todo of todos$ | async">
+  {{ todo.id }}
+</p>

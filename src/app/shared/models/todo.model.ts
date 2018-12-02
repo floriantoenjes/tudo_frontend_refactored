@@ -1,4 +1,5 @@
+import { RestEntity } from './rest-entity.model';
 
-export class Todo {
+export class Todo extends RestEntity {
 
 }
