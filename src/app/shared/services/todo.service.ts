@@ -15,4 +15,8 @@ export class TodoService {
   getTodos(todoListId: number): Observable<Todo[]> {
     return this.http.getRestEntities<Todo>(`/todoLists/${todoListId}/todos`, 'todos');
   }
+
+  getTodo(todoId: number): Observable<Todo> {
+    return this.http.getRestEntity<Todo>(`/todos/${todoId}`);
+  }
 }

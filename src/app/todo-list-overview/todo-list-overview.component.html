@@ -1,6 +1,6 @@
 
 <ul>
   <li *ngFor="let todoList of todoLists$ | async">
-    <a routerLink="/todo-lists/{{ todoList.id }}">{{ todoList.name }}</a>
+    <a [routerLink]="'/todo-lists/' + todoList.id">{{ todoList.name }}</a>
   </li>
 </ul>
