@@ -31,14 +31,14 @@ export class RestClientService extends HttpClient {
     );
   }
 
-  getRestEntity<T>(uri: string): Observable<T> {
+  getRestEntity<T extends RestEntity>(uri: string): Observable<T> {
     return super.get<T>(`${environment.apiUrl}${uri}`, {
       headers: new HttpHeaders()
         .set('Content-Type', 'application/x-www-form-urlencoded')
     });
   }
 
-  postRestEntity<T>(uri: string, body: any): Observable<T> {
+  postRestEntity<T extends RestEntity>(uri: string, body: any): Observable<T> {
     return super.post<T>(`${environment.apiUrl}${uri}`, body,
       { headers: new HttpHeaders().set('Content-Type', 'application/json') }
     );

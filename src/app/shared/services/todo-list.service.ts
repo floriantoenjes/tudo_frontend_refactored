@@ -15,7 +15,9 @@ export class TodoListService {
   ) { }
 
   getTodoLists(): Observable<TodoList[]> {
-    return this.http.getRestEntities<TodoList>(`/users/${this.authService.getCurrentUser().id}/todoLists` , 'todoLists');
+    return this.http.getRestEntities<TodoList>(
+      `/todoLists/search/findAllByCreator?creator=/api/v1/users/${this.authService.getCurrentUser().id}`, 'todoLists'
+    );
   }
 
   getTodoList(todoListId: string): Observable<TodoList> {
