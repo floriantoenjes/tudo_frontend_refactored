@@ -3,6 +3,7 @@ import { TodoList } from '../shared/models/todo-list.model';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { TodoListService } from '../shared/services/todo-list.service';
+import { Todo } from '../shared/models/todo.model';
 
 @Component({
   selector: 'app-todo-list',
@@ -12,6 +13,8 @@ import { TodoListService } from '../shared/services/todo-list.service';
 export class TodoListComponent implements OnInit {
 
   public todoList$: Observable<TodoList>;
+
+  public todos$: Observable<Todo>;
 
   constructor(
     private route: ActivatedRoute,
