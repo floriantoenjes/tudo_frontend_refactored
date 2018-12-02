@@ -3,7 +3,6 @@
     {{ todoList.name }}
   </p>
   <p *ngFor="let todo of todos$ | async">
-    {{ todo.id }}
     <a [routerLink]="'/todo-lists/' + todoList.id + '/todos/' + todo.id">{{ todo.name }}</a>
   </p>
 </div>

@@ -10,6 +10,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoComponent } from './todo/todo.component';
+import { SignedInGuard } from './shared/guards/signed-in.guard';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TodoComponent } from './todo/todo.component';
     ReactiveFormsModule
   ],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    SignedInGuard
   ],
   bootstrap: [AppComponent]
 })
