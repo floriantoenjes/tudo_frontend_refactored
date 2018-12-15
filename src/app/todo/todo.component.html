@@ -1,3 +1,15 @@
 <p>
   {{ (todo$ | async)?.id }}
 </p>
+
+
+<form [formGroup]="todoForm">
+  <input type="text" formControlName="name">
+  <textarea formControlName="description"></textarea>
+  <input type="date" formControlName="dueDate">
+  <input type="text" formControlName="tags">
+  <input type="number" formControlNme="priority">
+  <select multiple formControlName="assignedUsers"></select>
+  <input type="number" formControlName="progress">
+  <input type="checkbox" formControlName="completed">
+</form>
