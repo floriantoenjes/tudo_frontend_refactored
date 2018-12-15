@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../shared/services/user.service';
+import { Observable } from 'rxjs';
+import { User } from '../shared/models/user.model';
 
 @Component({
   selector: 'app-users',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersComponent implements OnInit {
 
-  constructor() { }
+  public users$: Observable<User[]>;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.users$ = this.userService.getUsers();
   }
 
 }
