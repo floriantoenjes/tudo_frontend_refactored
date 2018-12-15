@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoComponent } from './todo/todo.component';
 import { SignedInGuard } from './shared/guards/signed-in.guard';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SignedInGuard } from './shared/guards/signed-in.guard';
     TodoListOverviewComponent,
     SignInComponent,
     TodoListComponent,
-    TodoComponent
+    TodoComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
